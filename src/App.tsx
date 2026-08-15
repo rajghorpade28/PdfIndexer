@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FileUploader } from './features/uploader/FileUploader';
 import { IndexPanel } from './features/index-panel/IndexPanel';
 import { PDFViewer } from './features/pdf-viewer/PDFViewer';
 import { ExportMenu } from './features/export/ExportMenu';
-import { Topic, ProcessingProgress } from './types';
+import type { Topic, ProcessingProgress } from './types';
 import './lib/pdf-setup';
 import { extractTitlesForEmbedding, groupTopicsSemantically, cosineSimilarity } from './lib/clustering';
 
@@ -22,7 +22,7 @@ export default function App() {
   // Search State
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
   const [isSearching, setIsSearching] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  // Search state managed partly by ref
   const searchTimeoutRef = useRef<number | null>(null);
 
   const pdfWorkerRef = useRef<Worker | null>(null);
@@ -169,7 +169,6 @@ export default function App() {
     setCurrentPage(1);
     setTopics([]);
     setSearchResults(null);
-    setSearchQuery('');
     setProgress({ status: 'loading', progress: 0, message: 'Reading file...' });
 
     try {
@@ -190,7 +189,6 @@ export default function App() {
   };
 
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
     if (!query.trim()) {
        setSearchResults(null);
        setIsSearching(false);

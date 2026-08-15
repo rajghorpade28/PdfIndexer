@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Topic } from '../../types';
-import { ChevronRight, ChevronDown, FileText, Search, Edit2, Trash2, Check, X } from 'lucide-react';
+import type { Topic } from '../../types';
+import { ChevronRight, ChevronDown, FileText, Search, Edit2, Trash2, Check } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface SearchResult {

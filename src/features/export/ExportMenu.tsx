@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Download, FileJson, FileText, Table } from 'lucide-react';
-import { Topic } from '../../types';
+import type { Topic } from '../../types';
 import { exportToJson, exportToMarkdown, exportToCsv } from '../../lib/exporters';
 import { cn } from '../../lib/utils';
 

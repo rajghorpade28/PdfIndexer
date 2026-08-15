@@ -1,4 +1,4 @@
-import { Topic } from '../types';
+import type { Topic } from '../types';
 
 export function cosineSimilarity(vecA: number[], vecB: number[]): number {
   let dotProduct = 0;
@@ -20,7 +20,7 @@ interface FlatTopic {
   embedding: number[];
 }
 
-export function groupTopicsSemantically(rootTopics: Topic[], embeddingsFlatList: number[]): Topic[] {
+export function groupTopicsSemantically(rootTopics: Topic[], embeddingsFlatList: number[][]): Topic[] {
   // We need to match the flat list of embeddings back to the recursive tree structure.
   // First, we flatten the tree to align with embeddings.
   

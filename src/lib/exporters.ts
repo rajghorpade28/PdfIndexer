@@ -1,4 +1,4 @@
-import { Topic } from '../types';
+import type { Topic } from '../types';
 
 function triggerDownload(content: string, filename: string, mimeType: string) {
   const blob = new Blob([content], { type: mimeType });
