@@ -72,8 +72,8 @@ export default function App() {
             return {
               ...prev, 
               status: 'analyzing', 
-              progress: payload.progress || 0, 
-              message: `Downloading AI model: ${payload.file} (${Math.round(payload.progress)}%)` 
+              progress: Math.round(payload.progress ?? 0), 
+              message: `Downloading AI model (${Math.round(payload.progress ?? 0)}%)` 
             };
          });
       } else if (type === 'INIT_SUCCESS') {

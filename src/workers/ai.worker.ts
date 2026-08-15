@@ -14,9 +14,11 @@ self.onmessage = async (e: MessageEvent) => {
     try {
       if (!embedder) {
         embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
-          progress_callback: (progress: any) => {
-            // progress: { status: 'downloading'|'progress'|'done', file: string, progress: number }
-            self.postMessage({ type: 'DOWNLOAD_PROGRESS', payload: progress });
+          progress_callback: (p: any) => {
+            // Only forward actual byte-level download progress, not lifecycle events
+            if (p.status === 'progress' && typeof p.progress === 'number' && p.file) {
+              self.postMessage({ type: 'DOWNLOAD_PROGRESS', payload: p });
+            }
           }
         });
       }
