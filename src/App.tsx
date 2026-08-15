@@ -64,14 +64,18 @@ export default function App() {
     aiWorkerRef.current.onmessage = (e) => {
       const { type, payload } = e.data;
       if (type === 'DOWNLOAD_PROGRESS') {
-         if (payload.status === 'progress' && progress.status !== 'error' && progress.status !== 'done') {
-            setProgress(prev => ({ 
+         setProgress(prev => {
+            // Only update main progress bar if user has uploaded a file and is waiting
+            if (prev.status === 'idle' || prev.status === 'done' || prev.status === 'error') {
+               return prev;
+            }
+            return {
               ...prev, 
               status: 'analyzing', 
               progress: payload.progress || 0, 
               message: `Downloading AI model: ${payload.file} (${Math.round(payload.progress)}%)` 
-            }));
-         }
+            };
+         });
       } else if (type === 'INIT_SUCCESS') {
         setAiModelReady(true);
         if (pendingTopicsRef.current.length > 0) {
